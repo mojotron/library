@@ -1,0 +1,21 @@
+:root {
+  /* Color combination from */
+  /* https://99designs.com/blog/creative-inspiration/color-combinations/ */
+  --coffee: #edca82;
+  --blue: #097770;
+  --orange: #e0cdbe;
+  --green: #a9c0a6;
+}
+.book-object {
+  height: 100px;
+  width: 250px;
+  border: 1px solid darkkhaki;
+}
+body {
+  min-height: 100vh;
+  width: 100%;
+  /* Image from https://freepikpsd.com/media/2019/11/geometric-shape-pattern-png-14-Transparent-Images.png*/
+  background: url("../images/geometric-pattern.png"),
+    linear-gradient(180deg, var(--orange), var(--coffee));
+  background-size: 60px auto;
+}
