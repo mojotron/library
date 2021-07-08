@@ -4,9 +4,11 @@
 //Search for book with api
 //Get book data from api and with that data creat book object
 const library = [];
-function Book(title, author) {
+function Book(title, author, pages, read = false) {
   this.title = title;
   this.author = author;
+  this.pages = pages;
+  this.read = read;
 }
 
 Book.prototype.renderBookHtml = function () {
