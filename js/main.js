@@ -1,8 +1,18 @@
 "use strict";
-//Crud application
-//Crate book, read book(display), update book, delete book.
-//Search for book with api
-//Get book data from api and with that data creat book object
+//DOM Selectors
+const addBookBtn = document.querySelector(".btn-add-book");
+const inputForm = document.querySelector(".add-book-form");
+
+const callDisplayForm = () => inputForm.classList.remove("hidden");
+addBookBtn.addEventListener("click", callDisplayForm);
+function addNewBook() {
+  //Display form
+  //User inputs data
+  //On form submit take data
+  //Create book object
+  //Add book to library
+  //Update library display
+}
 const library = [];
 function Book(title, author, pages, read = false) {
   this.title = title;

@@ -11,9 +11,10 @@ body {
   min-height: 100vh;
   width: 100%;
   /* Image from https://freepikpsd.com/media/2019/11/geometric-shape-pattern-png-14-Transparent-Images.png*/
-  background: url("../images/geometric-pattern.png"),
+  /* background: url("../images/geometric-pattern.png"),
     linear-gradient(180deg, var(--orange), var(--coffee));
-  background-size: 250px auto;
+  background-size: 250px auto; */
+  background-color: var(--orange);
   box-sizing: border-box;
   font-size: 16px;
   font-family: "Oswald", monospace;
@@ -25,21 +26,23 @@ body {
   align-items: center;
 }
 .header-wrapper {
-  height: 10vh;
+  height: 15vh;
   width: 100%;
-  background-color: var(--green);
-  opacity: 0.8;
-  border-bottom: 3px solid var(--blue);
+  background-color: var(--blue);
+  color: var(--green);
+  border-bottom: 3px solid var(--green);
 }
 
 .header h1 {
   font-size: 3rem;
-  color: var(--blue);
   text-transform: uppercase;
   letter-spacing: 0.2rem;
   font-weight: 600;
 }
-
+.header p {
+  font-size: 1.2rem;
+  letter-spacing: 0.1rem;
+}
 .book-object {
   height: 400px;
   width: 200px;
@@ -93,12 +96,14 @@ body {
 .books-showcase {
   width: 90%;
   min-height: 70vh;
-  background-color: rgb(216, 247, 155);
+  border: 10px solid black;
 }
 /* book form */
 .add-book-form {
-  background-color: white;
-  width: 50%;
+  border: 5px solid var(--green);
+  background-color: var(--blue);
+  color: var(--green);
+  min-width: 400px;
   padding: 50px 0;
   position: fixed;
   top: 50%;
@@ -111,4 +116,39 @@ body {
 .add-book-form input {
   display: block;
   margin-bottom: 10px;
+}
+/* add book btn */
+.btn-add-book {
+  opacity: 1;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  height: 50px;
+  width: 50px;
+  background-color: var(--blue);
+  color: var(--green);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4rem;
+  font-weight: 600;
+  border-radius: 50px;
+  border: 3px solid var(--green);
+}
+.btn-add-book::before {
+  content: "+";
+  position: relative;
+  bottom: 2px;
+}
+.btn-add-book:active {
+  color: var(--blue);
+  background-color: var(--green);
+}
+.hidden {
+  visibility: hidden;
+}
+@media (max-width: 786px) {
+  .add-book-form {
+    min-width: 300px;
+  }
 }
