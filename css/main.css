@@ -129,19 +129,18 @@ body {
   align-items: center;
 }
 .add-book-form label {
-  font-size: 1.6rem;
+  display: block;
+  font-size: 1.3rem;
+  padding-bottom: 3px;
 }
 .add-book-form input {
   display: block;
   margin-bottom: 10px;
-  height: 30px;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   color: var(--blue);
 }
 /* add book btn */
-.btn-add-book,
-.btn-cancel-form {
-  opacity: 1;
+.btn {
   position: absolute;
   top: 20px;
   right: 20px;
@@ -157,6 +156,11 @@ body {
   border-radius: 50px;
   border: 3px solid var(--green);
 }
+.btn-cancel-form {
+  transform: scale(0.5);
+  top: 0;
+  right: 0;
+}
 .btn-add-book::before {
   content: "+";
   position: relative;
@@ -165,10 +169,10 @@ body {
 .btn-cancel-form::before {
   content: "x";
   position: relative;
-  bottom: 7px;
+  bottom: 8px;
   font-size: 3rem;
 }
-.btn-add-book:active {
+.btn:active {
   color: var(--blue);
   background-color: var(--green);
 }

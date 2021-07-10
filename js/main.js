@@ -11,9 +11,7 @@ Book.prototype.renderBookHtml = function () {
   const bookHTML = document.createElement("div");
   bookHTML.innerHTML = `
   <div class="book-object">
-    <div class="book-cover">
-      <i class="fas fa-book-open"></i>
-    </div>
+    <div class="book-cover"><i class="fas fa-book-open"></i></div>
     <div class="book-info">
       <h3>${this.title}</h3>
       <span class="book-author">by ${this.author}</span>
@@ -35,37 +33,39 @@ Book.prototype.renderBookHtml = function () {
 //DOM Selectors
 const booksShowcase = document.querySelector(".books-showcase");
 const addBookBtn = document.querySelector(".btn-add-book");
+const cancelForm = document.querySelector(".btn-cancel-form");
 const inputForm = document.querySelector(".add-book-form");
 const inputFields = document.querySelectorAll(".book-data");
 
-inputForm.addEventListener("submit", function (e) {
-  e.preventDefault();
-  const bookInfo = Array.from(inputFields).map((ele) => {
-    return ele.type === "checkbox" ? ele.checked : ele.value;
-  });
-  const newBook = new Book(...bookInfo);
-  library.push(newBook);
-  booksShowcase.appendChild(newBook.renderBookHtml());
+const toggleDisplayForm = () => inputForm.classList.toggle("hidden");
 
-  library.forEach((book) => book.renderBookHtml());
-  //Reset to original state
-  inputFields.forEach(function (ele) {
-    ele.type === "checkbox" ? (ele.checked = false) : (ele.value = "");
+function getBookInputData(inputFields) {
+  return Array.from(inputFields).map((field) => {
+    return field.type === "checkbox" ? field.checked : field.value;
   });
-  inputForm.classList.add("hidden");
-});
-
-const callDisplayForm = () => inputForm.classList.remove("hidden");
-addBookBtn.addEventListener("click", callDisplayForm);
-function addNewBook() {
-  //Display form
-  //User inputs data
-  //On form submit take data
-  //Create book object
-  //Add book to library
-  //Update library display
 }
 
-// const hobbit = new Book("The Hobbit", "J. R. R. Tolkien");
-// const mainWrapper = document.querySelector(".main-wrapper");
-// mainWrapper.insertAdjacentElement("beforeend", hobbit.renderBookHtml());
+function resetFormInputFields(inputFields) {
+  inputFields.forEach((field) => {
+    field.type === "checkbox" ? (field.checked = false) : (field.value = "");
+  });
+}
+
+function resetAndHideForm(inputFields) {
+  resetFormInputFields(inputFields);
+  toggleDisplayForm();
+}
+
+function createAndDisplayBook(event) {
+  event.preventDefault();
+  const newBook = new Book(...getBookInputData(inputFields));
+  library.push(newBook);
+  //Add new book to the page
+  booksShowcase.appendChild(newBook.renderBookHtml());
+  //Reset input fields and hide form
+  resetAndHideForm(inputFields);
+}
+
+inputForm.addEventListener("submit", (e) => createAndDisplayBook(e));
+addBookBtn.addEventListener("click", toggleDisplayForm);
+cancelForm.addEventListener("click", () => resetAndHideForm(inputFields));
