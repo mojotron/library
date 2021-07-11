@@ -98,18 +98,18 @@ body {
   border: 1px solid var(--blue);
   border-radius: 7px;
 }
-.btn-read-checkbox {
+.btn-read-book {
   width: 54px;
   padding: 0 3px;
 }
 
-.btn-read-checkbox span {
+.btn-read-book span {
   display: inline-block;
   padding-left: 3px;
 }
 .btn-delete-book,
 .btn-update-book,
-.btn-read-checkbox {
+.btn-read-book {
   display: flex;
   justify-content: center;
   align-items: center;
