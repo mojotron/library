@@ -92,7 +92,9 @@ body {
   justify-content: space-around;
 }
 .book-btn {
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 35px;
   height: 100%;
   border: 1px solid var(--blue);
@@ -102,19 +104,29 @@ body {
   width: 54px;
   padding: 0 3px;
 }
-
-.btn-read-book span {
-  display: inline-block;
+.btn-read-book i {
   padding-left: 3px;
 }
-.btn-delete-book,
-.btn-update-book,
-.btn-read-book {
+
+i.btn-delete-book,
+i.btn-update-book,
+i.btn-read-book {
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1.1rem;
   color: var(--blue);
+  cursor: pointer;
+}
+i.btn-read-book::before {
+  position: relative;
+  left: 40px;
+}
+i.btn-read-book::after {
+  content: "Read";
+  position: relative;
+  right: 18px;
+  font-size: 0.9rem;
 }
 .books-showcase {
   width: 90%;
