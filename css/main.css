@@ -18,24 +18,36 @@ body {
   box-sizing: border-box;
   font-size: 16px;
   font-family: "Oswald", monospace;
+  color: var(--blue);
 }
-.main-wrapper {
+/* Center content in the middle of the element */
+.main-wrapper,
+.book-cover,
+.book-btn,
+i.btn-delete-book,
+i.btn-update-book,
+i.btn-read-book,
+.add-book-form,
+.btn {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
+/* HEADER */
 .header-wrapper {
   height: 15vh;
   width: 100%;
   background-color: var(--blue);
   color: var(--green);
-  border-bottom: 3px solid var(--green);
+  border-bottom: 7px solid var(--green);
 }
-
 .header h1,
 .header p {
   padding-left: 1.5rem;
+  font-size: 1.2rem;
+  letter-spacing: 0.1rem;
+  color: var(--orange);
 }
 .header h1 {
   margin-top: 0.6rem;
@@ -46,25 +58,18 @@ body {
   color: var(--coffee);
   text-shadow: 1px 1px 3px var(--green);
 }
-.header p {
-  font-size: 1.2rem;
-  letter-spacing: 0.1rem;
-  color: var(--orange);
-}
 .book-object {
-  height: 400px;
-  width: 200px;
+  height: 25rem;
+  width: 12.5rem;
   display: flex;
   flex-direction: column;
   border: 3px solid var(--blue);
-  margin: 20px 10px 0;
+  margin: 1.5rem 0.8rem 0;
   color: var(--blue);
 }
 .book-cover {
   height: 60%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: row;
   font-size: 5rem;
   color: var(--blue);
   background: var(--coffee);
@@ -76,7 +81,7 @@ body {
   position: relative;
 }
 .book-info h3 {
-  padding-top: 10px;
+  padding-top: 0.6rem;
   font-size: 1.6rem;
   text-align: center;
 }
@@ -84,7 +89,7 @@ body {
   display: block;
   text-align: center;
   font-size: 1.3rem;
-  padding: 5px 0;
+  padding: 0.3rem 0;
 }
 .book-pages {
   font-size: 0.9rem;
@@ -100,9 +105,6 @@ body {
   justify-content: space-around;
 }
 .book-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 35px;
   height: 100%;
   border: 1px solid var(--blue);
@@ -123,9 +125,6 @@ body {
 i.btn-delete-book,
 i.btn-update-book,
 i.btn-read-book {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-size: 1.1rem;
   color: var(--blue);
   cursor: pointer;
@@ -151,9 +150,6 @@ i.btn-read-book {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 .add-book-form label {
   display: block;
@@ -166,6 +162,10 @@ i.btn-read-book {
   font-size: 1.3rem;
   color: var(--blue);
 }
+#book-read {
+  height: 20px;
+  width: 20px;
+}
 /* add book btn */
 .btn {
   position: absolute;
@@ -175,9 +175,6 @@ i.btn-read-book {
   width: 50px;
   background-color: var(--blue);
   color: var(--green);
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-size: 4rem;
   font-weight: 600;
   border-radius: 50px;
@@ -212,6 +209,16 @@ i.btn-read-book {
 }
 @media (max-width: 786px) {
   .add-book-form {
-    min-width: 300px;
+    min-width: 95%;
+  }
+  .add-book-form label {
+    padding-left: 1rem;
+  }
+  .add-book-form input {
+    width: 95%;
+    margin: 0 auto;
+  }
+  #book-read {
+    margin: 1px 0 2px 20px;
   }
 }

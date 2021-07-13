@@ -1,5 +1,5 @@
 "use strict";
-let updateBookById;
+let updateBookById; //used to store id of book user want to update
 function Library() {
   this.bookId = 0; //used to target specific book in dom and library
   this.bookcase = {}; //save books in format id:{new Book()}
@@ -81,11 +81,11 @@ const inputPages = document.querySelector("#book-pages");
 const inputRead = document.querySelector("#book-read");
 const inputSubmit = document.querySelector("[type='submit']");
 const inputFields = document.querySelectorAll("input");
-
+//Helper functions
 function getBookObjectId(event) {
   return event.target.parentElement.parentElement.parentElement.dataset.bookId;
 }
-
+//Book object read/update/delete event handler functions
 function setReadEventListener(e) {
   library.bookcase[getBookObjectId(e)].toggleRead();
   library.listBooks();
@@ -112,13 +112,13 @@ function setDeleteEventListener(e) {
 }
 
 const toggleDisplayForm = () => inputForm.classList.toggle("hidden");
-
+//Get data from form submit in array, then use spread operator to create new Book
 function getBookInputData(inputFields) {
   return Array.from(inputFields).map((field) => {
     return field.type === "checkbox" ? field.checked : field.value;
   });
 }
-
+//Set form input values to default state
 function resetFormInputFields(inputFields) {
   inputFields.forEach((field) => {
     if (field.type === "checkbox") field.checked = false;
@@ -126,17 +126,17 @@ function resetFormInputFields(inputFields) {
     else field.value = "";
   });
 }
-
+//After getting data from form, clear form and hide it from view
 function resetAndHideForm(inputFields) {
   resetFormInputFields(inputFields);
   toggleDisplayForm();
 }
-
+//Form submit event handler, from create book btn and update book btn
 function createAndDisplayBook(event) {
   event.preventDefault();
   const newBook = new Book(...getBookInputData(inputFields));
   if (inputSubmit.value === "Update Book") {
-    library.bookcase[updateBookById] = newBook;
+    library.bookcase[updateBookById] = newBook; //global flag is used for reference
     library.listBooks();
   } else if (inputSubmit.value === "Create Book") {
     library.addBook(newBook);
@@ -148,23 +148,6 @@ inputForm.addEventListener("submit", (e) => createAndDisplayBook(e));
 addBookBtn.addEventListener("click", toggleDisplayForm);
 cancelForm.addEventListener("click", () => resetAndHideForm(inputFields));
 //Template data
-library.addBook(new Book("Ender's Game", "Orson Scott Card", 324, true));
-library.addBook(
-  new Book("The Dark Tower: The Gunslinger", "Stephen King", 300, true)
-);
-library.addBook(new Book("The Hobbit", "J. R. R. Tolkien", 310, true));
-library.addBook(
-  new Book("Harry Potter and the Goblet of Fire", "	J. K. Rowling", 636, true)
-);
-library.addBook(new Book("Ender's Game", "Orson Scott Card", 324, true));
-library.addBook(
-  new Book("The Dark Tower: The Gunslinger", "Stephen King", 300, true)
-);
-library.addBook(new Book("The Hobbit", "J. R. R. Tolkien", 310, true));
-library.addBook(
-  new Book("Harry Potter and the Goblet of Fire", "	J. K. Rowling", 636, true)
-);
-
 library.addBook(new Book("Ender's Game", "Orson Scott Card", 324, true));
 library.addBook(
   new Book("The Dark Tower: The Gunslinger", "Stephen King", 300, true)
