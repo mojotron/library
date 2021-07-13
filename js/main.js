@@ -1,7 +1,8 @@
 "use strict";
+let updateBookById;
 function Library() {
-  this.bookId = 0;
-  this.bookcase = {};
+  this.bookId = 0; //used to target specific book in dom and library
+  this.bookcase = {}; //save books in format id:{new Book()}
 }
 Library.prototype.incrementBooId = function () {
   this.bookId++;
@@ -29,15 +30,10 @@ Library.prototype.listBooks = function () {
     const read = bookEle.querySelector(".btn-read-book");
     const update = bookEle.querySelector(".btn-update-book");
     const del = bookEle.querySelector(".btn-delete-book");
-    read.addEventListener("click", (e) => {
-      library.bookcase[getBookObjectId(e)].toggleRead();
-      this.listBooks();
-    });
-    update.addEventListener("click", () => alert("U"));
-    del.addEventListener("click", (e) => {
-      delete library.bookcase[getBookObjectId(e)];
-      this.listBooks();
-    });
+    //Add event listeners to current book dom element
+    read.addEventListener("click", (e) => setReadEventListener(e));
+    update.addEventListener("click", (e) => setUpdateEventListener(e));
+    del.addEventListener("click", (e) => setDeleteEventListener(e));
   }
 };
 function Book(title, author, pages, read) {
@@ -62,6 +58,7 @@ Book.prototype.renderBookHtml = function (id) {
       <span class="book-author">by ${this.author}</span>
       <p class="book-pages">Number of pages, ${this.pages}.</p>
       <div class="book-options">
+      <span>Read</span>
       <i class="book-btn btn-read-book ${
         this.read ? `fas fa-check` : `fas fa-times`
       }"></i>
@@ -75,14 +72,43 @@ Book.prototype.renderBookHtml = function (id) {
 //Library Object for user books
 const library = new Library();
 //DOM Selectors
-
 const addBookBtn = document.querySelector(".btn-add-book");
 const cancelForm = document.querySelector(".btn-cancel-form");
 const inputForm = document.querySelector(".add-book-form");
-const inputFields = document.querySelectorAll(".book-data");
+const inputTitle = document.querySelector("#book-title");
+const inputAuthor = document.querySelector("#book-author");
+const inputPages = document.querySelector("#book-pages");
+const inputRead = document.querySelector("#book-read");
+const inputSubmit = document.querySelector("[type='submit']");
+const inputFields = document.querySelectorAll("input");
 
 function getBookObjectId(event) {
   return event.target.parentElement.parentElement.parentElement.dataset.bookId;
+}
+
+function setReadEventListener(e) {
+  library.bookcase[getBookObjectId(e)].toggleRead();
+  library.listBooks();
+}
+
+function setUpdateEventListener(e) {
+  const currentBookId = getBookObjectId(e);
+  updateBookById = currentBookId;
+  //Get data from current book
+  const { title, author, pages, read } = library.bookcase[currentBookId];
+  //Fill current book data to input values
+  inputTitle.value = title;
+  inputAuthor.value = author;
+  inputPages.value = pages;
+  inputRead.checked = read;
+  inputSubmit.value = "Update Book";
+  //Display form with current book data
+  toggleDisplayForm(); //Wait user for submit or cancel form;
+}
+
+function setDeleteEventListener(e) {
+  delete library.bookcase[getBookObjectId(e)];
+  library.listBooks();
 }
 
 const toggleDisplayForm = () => inputForm.classList.toggle("hidden");
@@ -95,7 +121,9 @@ function getBookInputData(inputFields) {
 
 function resetFormInputFields(inputFields) {
   inputFields.forEach((field) => {
-    field.type === "checkbox" ? (field.checked = false) : (field.value = "");
+    if (field.type === "checkbox") field.checked = false;
+    else if (field.type === "submit") field.value = "Create Book";
+    else field.value = "";
   });
 }
 
@@ -107,19 +135,41 @@ function resetAndHideForm(inputFields) {
 function createAndDisplayBook(event) {
   event.preventDefault();
   const newBook = new Book(...getBookInputData(inputFields));
-  const bookId = library.getBookId();
-  library.addBook(newBook);
+  if (inputSubmit.value === "Update Book") {
+    library.bookcase[updateBookById] = newBook;
+    library.listBooks();
+  } else if (inputSubmit.value === "Create Book") {
+    library.addBook(newBook);
+  }
   resetAndHideForm(inputFields);
 }
-
+//Event handlers
 inputForm.addEventListener("submit", (e) => createAndDisplayBook(e));
 addBookBtn.addEventListener("click", toggleDisplayForm);
 cancelForm.addEventListener("click", () => resetAndHideForm(inputFields));
-
-//////////////////////////////////////////////
 //Template data
 library.addBook(new Book("Ender's Game", "Orson Scott Card", 324, true));
 library.addBook(
   new Book("The Dark Tower: The Gunslinger", "Stephen King", 300, true)
 );
 library.addBook(new Book("The Hobbit", "J. R. R. Tolkien", 310, true));
+library.addBook(
+  new Book("Harry Potter and the Goblet of Fire", "	J. K. Rowling", 636, true)
+);
+library.addBook(new Book("Ender's Game", "Orson Scott Card", 324, true));
+library.addBook(
+  new Book("The Dark Tower: The Gunslinger", "Stephen King", 300, true)
+);
+library.addBook(new Book("The Hobbit", "J. R. R. Tolkien", 310, true));
+library.addBook(
+  new Book("Harry Potter and the Goblet of Fire", "	J. K. Rowling", 636, true)
+);
+
+library.addBook(new Book("Ender's Game", "Orson Scott Card", 324, true));
+library.addBook(
+  new Book("The Dark Tower: The Gunslinger", "Stephen King", 300, true)
+);
+library.addBook(new Book("The Hobbit", "J. R. R. Tolkien", 310, true));
+library.addBook(
+  new Book("Harry Potter and the Goblet of Fire", "	J. K. Rowling", 636, true)
+);

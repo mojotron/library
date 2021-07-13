@@ -11,9 +11,9 @@ body {
   min-height: 100vh;
   width: 100%;
   /* Image from https://freepikpsd.com/media/2019/11/geometric-shape-pattern-png-14-Transparent-Images.png*/
-  /* background: url("../images/geometric-pattern.png"),
+  background: url("../images/geometric-pattern.png"),
     linear-gradient(180deg, var(--orange), var(--coffee));
-  background-size: 250px auto; */
+  background-size: 125px auto;
   background-color: var(--orange);
   box-sizing: border-box;
   font-size: 16px;
@@ -33,15 +33,23 @@ body {
   border-bottom: 3px solid var(--green);
 }
 
+.header h1,
+.header p {
+  padding-left: 1.5rem;
+}
 .header h1 {
+  margin-top: 0.6rem;
   font-size: 3rem;
   text-transform: uppercase;
   letter-spacing: 0.2rem;
   font-weight: 600;
+  color: var(--coffee);
+  text-shadow: 1px 1px 3px var(--green);
 }
 .header p {
   font-size: 1.2rem;
   letter-spacing: 0.1rem;
+  color: var(--orange);
 }
 .book-object {
   height: 400px;
@@ -100,14 +108,18 @@ body {
   border: 1px solid var(--blue);
   border-radius: 7px;
 }
-.btn-read-book {
-  width: 54px;
-  padding: 0 3px;
+.book-btn:hover {
+  background-color: var(--coffee);
 }
-.btn-read-book i {
-  padding-left: 3px;
+.book-btn:active {
+  background-color: var(--green);
 }
-
+.book-options span {
+  display: inline-block;
+  font-size: 1.1rem;
+  position: relative;
+  top: 7px;
+}
 i.btn-delete-book,
 i.btn-update-book,
 i.btn-read-book {
@@ -118,16 +130,7 @@ i.btn-read-book {
   color: var(--blue);
   cursor: pointer;
 }
-i.btn-read-book::before {
-  position: relative;
-  left: 40px;
-}
-i.btn-read-book::after {
-  content: "Read";
-  position: relative;
-  right: 18px;
-  font-size: 0.9rem;
-}
+
 .books-showcase {
   width: 90%;
   max-width: 950px;
@@ -135,6 +138,7 @@ i.btn-read-book::after {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  padding-bottom: 2rem;
 }
 /* book form */
 .add-book-form {
@@ -178,6 +182,10 @@ i.btn-read-book::after {
   font-weight: 600;
   border-radius: 50px;
   border: 3px solid var(--green);
+}
+.btn-add-book {
+  position: fixed;
+  z-index: 3;
 }
 .btn-cancel-form {
   transform: scale(0.5);
