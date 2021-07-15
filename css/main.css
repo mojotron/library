@@ -58,6 +58,7 @@ i.btn-read-book,
   color: var(--coffee);
   text-shadow: 1px 1px 3px var(--green);
 }
+/* BOOK OBJECT dynamic js */
 .book-object {
   height: 25rem;
   width: 12.5rem;
@@ -66,6 +67,7 @@ i.btn-read-book,
   border: 3px solid var(--blue);
   margin: 1.5rem 0.8rem 0;
   color: var(--blue);
+  border-radius: 3px;
 }
 .book-cover {
   height: 60%;
@@ -104,6 +106,7 @@ i.btn-read-book,
   display: flex;
   justify-content: space-around;
 }
+/* Book object buttons */
 .book-btn {
   width: 35px;
   height: 100%;
@@ -129,7 +132,7 @@ i.btn-read-book {
   color: var(--blue);
   cursor: pointer;
 }
-
+/* BOOKs Object container*/
 .books-showcase {
   width: 90%;
   max-width: 950px;
@@ -139,7 +142,7 @@ i.btn-read-book {
   justify-content: space-around;
   padding-bottom: 2rem;
 }
-/* book form */
+/* INPUT FORM */
 .add-book-form {
   border: 5px solid var(--green);
   background-color: var(--blue);
@@ -166,7 +169,7 @@ i.btn-read-book {
   height: 20px;
   width: 20px;
 }
-/* add book btn */
+/* BUTTON CREATE BOOK AND CANCEL FORM*/
 .btn {
   position: absolute;
   top: 20px;

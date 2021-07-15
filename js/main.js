@@ -23,6 +23,7 @@ Library.prototype.updateBook = function (id, book) {
 };
 Library.prototype.deleteBook = function (id) {
   localStorage.removeItem(id);
+  library.listBooks();
 };
 Library.prototype.createBookHtml = function (id) {
   const { title, author, pages, read } = this.getBook(id);
@@ -111,7 +112,6 @@ function setUpdateEventListener(e) {
 
 function setDeleteEventListener(e) {
   library.deleteBook(getBookObjectId(e));
-  library.listBooks();
 }
 
 const toggleDisplayForm = () => inputForm.classList.toggle("hidden");
@@ -145,13 +145,13 @@ function createAndDisplayBook(event) {
   }
   resetAndHideForm(inputFields);
 }
-
 //Event handlers
 inputForm.addEventListener("submit", (e) => createAndDisplayBook(e));
 addBookBtn.addEventListener("click", toggleDisplayForm);
 cancelForm.addEventListener("click", () => resetAndHideForm(inputFields));
 
 const library = new Library();
+//Fill in some books for demo
 library.addBook(new Book("Ender's Game", "Orson Scott Card", 324, true));
 library.addBook(
   new Book("The Dark Tower: The Gunslinger", "Stephen King", 300, true)
