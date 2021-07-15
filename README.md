@@ -26,3 +26,4 @@ View live preview of book [Library](https://mojotron.github.io/library/index.htm
   parentNode.changeElement(new; old)
 - CRUD application (Create, Read, Update, and Delete) - in this case book
   objects in the library.
+- Storage API - use of localStorage for saving user data
