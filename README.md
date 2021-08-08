@@ -10,7 +10,7 @@ It is a basic CRUD application.
 
 View live preview of book [Library](https://mojotron.github.io/library/index.html) project via GitHub pages!
 
-## What have I learnd?
+### What have I learned?
 
 - Working with HTML form - getting data from user to create new object (in this case new Book())
 - How Fontawesome uses ::before ::after pseudo classes.
@@ -27,3 +27,15 @@ View live preview of book [Library](https://mojotron.github.io/library/index.htm
 - CRUD application (Create, Read, Update, and Delete) - in this case book
   objects in the library.
 - Storage API - use of localStorage for saving user data
+
+## Part 2 ES6 Classes
+
+Next step in curriculum is to refactor current code, from ES5 constructor functions to ES6 Classes. You can check up refactored code in [js/class_script.js](https://github.com/mojotron/library/blob/main/js/class_script.js) file.
+
+### What have I learned?
+
+- class keyword - special function, template for object creation
+- class constructor function - special method for creating and initializing instance of the class.
+- setter method with set - binds property to a function to be called when there is an attempt to set that property
+- getter method with get - binds property to a function that will be called when that property is looked up
+- public instance field declaration
