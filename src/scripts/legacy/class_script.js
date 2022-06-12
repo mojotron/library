@@ -1,77 +1,77 @@
 "use strict";
-let updateBookById;
-function Library() {
-  this.bookId = 0;
-}
-Library.prototype.getBookId = function () {
-  return this.bookId;
-};
-Library.prototype.incrementBookId = function () {
-  return this.bookId++;
-};
-Library.prototype.addBook = function (book) {
-  localStorage.setItem(this.bookId, JSON.stringify(book));
-  this.incrementBookId();
-  this.listBooks();
-};
-Library.prototype.getBook = function (id) {
-  return JSON.parse(localStorage.getItem(id));
-};
-Library.prototype.updateBook = function (id, book) {
-  localStorage.setItem(id, JSON.stringify(book));
-  this.listBooks();
-};
-Library.prototype.deleteBook = function (id) {
-  localStorage.removeItem(id);
-  library.listBooks();
-};
-Library.prototype.createBookHtml = function (id) {
-  const { title, author, pages, read } = this.getBook(id);
-  const bookEle = document.createElement("div");
-  bookEle.innerHTML = `
-  <div class="book-object" data-book-id="${id}">
-    <div class="book-cover"><i class="fas fa-book-open"></i></div>
-    <div class="book-info">
-      <h3>${title}</h3>
-      <span class="book-author">by ${author}</span>
-      <p class="book-pages">Number of pages, ${pages}.</p>
-      <div class="book-options">
-      <span>Read</span>
-      <i class="book-btn btn-read-book ${
-        read ? `fas fa-check` : `fas fa-times`
-      }"></i>
-        <i class="book-btn btn-update-book fas fa-pen"></i>
-        <i class="book-btn btn-delete-book fas fa-trash"></i>
-      </div>
-  </div>
-  `;
-  return bookEle;
-};
-Library.prototype.listBooks = function () {
-  const booksShowcase = document.querySelector(".books-showcase");
-  booksShowcase.innerHTML = "";
-  for (let id in window.localStorage) {
-    const book = this.getBook(id);
-    if (book) {
-      const bookEle = this.createBookHtml(id);
-      booksShowcase.insertAdjacentElement("afterbegin", bookEle);
-      const read = bookEle.querySelector(".btn-read-book");
-      const update = bookEle.querySelector(".btn-update-book");
-      const del = bookEle.querySelector(".btn-delete-book");
-      //Add event listeners to current book dom element
-      read.addEventListener("click", (e) => setReadEventListener(e));
-      update.addEventListener("click", (e) => setUpdateEventListener(e));
-      del.addEventListener("click", (e) => setDeleteEventListener(e));
+class Library {
+  bookId = 0;
+  incrementBookId() {
+    return this.bookId++;
+  }
+  addBook(book) {
+    localStorage.setItem(this.bookId, JSON.stringify(book));
+    this.incrementBookId();
+    this.listBooks();
+  }
+  getBook(id) {
+    return JSON.parse(localStorage.getItem(id));
+  }
+  updateBook(id, book) {
+    localStorage.setItem(id, JSON.stringify(book));
+    this.listBooks();
+  }
+  deleteBook(id) {
+    localStorage.removeItem(id);
+    library.listBooks();
+  }
+  createBookHtml(id) {
+    const { title, author, pages, read } = this.getBook(id);
+    const bookEle = document.createElement("div");
+    bookEle.innerHTML = `
+    <div class="book-object" data-book-id="${id}">
+      <div class="book-cover"><i class="fas fa-book-open"></i></div>
+      <div class="book-info">
+        <h3>${title}</h3>
+        <span class="book-author">by ${author}</span>
+        <p class="book-pages">Number of pages, ${pages}.</p>
+        <div class="book-options">
+        <span>Read</span>
+        <i class="book-btn btn-read-book ${
+          read ? `fas fa-check` : `fas fa-times`
+        }"></i>
+          <i class="book-btn btn-update-book fas fa-pen"></i>
+          <i class="book-btn btn-delete-book fas fa-trash"></i>
+        </div>
+    </div>
+    `;
+    return bookEle;
+  }
+
+  listBooks() {
+    const booksShowcase = document.querySelector(".books-showcase");
+    booksShowcase.innerHTML = "";
+    for (let id in window.localStorage) {
+      const book = this.getBook(id);
+      if (book) {
+        const bookEle = this.createBookHtml(id);
+        booksShowcase.insertAdjacentElement("afterbegin", bookEle);
+        const read = bookEle.querySelector(".btn-read-book");
+        const update = bookEle.querySelector(".btn-update-book");
+        const del = bookEle.querySelector(".btn-delete-book");
+        //Add event listeners to current book dom element
+        read.addEventListener("click", (e) => setReadEventListener(e));
+        update.addEventListener("click", (e) => setUpdateEventListener(e));
+        del.addEventListener("click", (e) => setDeleteEventListener(e));
+      }
     }
   }
-};
-
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
 }
+
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
+}
+let updateBookById;
 //DOM Selectors
 const addBookBtn = document.querySelector(".btn-add-book");
 const cancelForm = document.querySelector(".btn-cancel-form");
