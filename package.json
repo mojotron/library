@@ -1,0 +1,29 @@
+{
+  "name": "library",
+  "version": "1.0.0",
+  "description": "This project is part of [The Odin Project](https://www.theodinproject.com) curriculum. Goal of the project is to learn basic object orientated programing concepts in JS. Key concepts to learn are object constructors, object prototype, and prototypal inheritance. This app is a virtual library for user to keep track of the books or reading hit list. User can add new book to library, update existing books or delete them. It is a basic CRUD application.",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mojotron/library.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mojotron/library/issues"
+  },
+  "homepage": "https://github.com/mojotron/library#readme",
+  "devDependencies": {
+    "css-loader": "^6.7.1",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.9.2"
+  },
+  "dependencies": {
+    "firebase": "^9.8.3"
+  }
+}
