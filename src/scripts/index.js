@@ -1,19 +1,12 @@
 "use strict";
 import "../styles/reset.css";
 import "../styles/main.css";
-
-import { addBookToServer, getBooksFromServer } from "./firebase";
-
+import {
+  addBookToServer,
+  getBooksFromServer,
+  deleteBookFromServer,
+} from "./firebase";
 import Library from "./Library";
-const lib = new Library();
-
-async function init() {
-  const books = await getBooksFromServer();
-  console.log(books);
-  lib.render(books);
-}
-
-init();
 
 //DOM Selectors
 const addBookBtn = document.querySelector(".btn-add-book");
@@ -21,8 +14,17 @@ const bookForm = document.querySelector(".add-book-form");
 const cancelFormBtn = document.querySelector(".btn-cancel-form");
 const formSubmitBtn = bookForm.querySelector(".btn-submit-form");
 
-console.log(bookForm);
+const controlClickHandler = async (bookControlObj) => {
+  if (bookControlObj.action === "delete") {
+    await deleteBookFromServer(bookControlObj.id);
+  }
+  handleRenderBooks();
+};
 
+const handleRenderBooks = async () => {
+  const books = await getBooksFromServer();
+  Library.render(books, controlClickHandler);
+};
 // call form on click
 addBookBtn.addEventListener("click", () => {
   bookForm.classList.remove("hidden");
@@ -44,3 +46,12 @@ formSubmitBtn.addEventListener("click", (e) => {
   bookForm.classList.add("hidden");
   addBookToServer(bookObj);
 });
+
+export const handleDeleteBook = (id) => {
+  console.log(id);
+};
+
+async function init() {
+  handleRenderBooks();
+}
+init();
