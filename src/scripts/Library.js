@@ -1,54 +1,63 @@
-// import bookImage from "../images/book-svgrepo-com.svg";
+import bookIcon from "../images/book-svgrepo-com.svg";
+import checkerIcon from "../images/heavy-check-mark-svgrepo-com.svg";
+import updateIcon from "../images/edit-svgrepo-com.svg";
+import trashIcon from "../images/trash-svgrepo-com.svg";
+import crossIcon from "../images/x-close-delete-svgrepo-com.svg";
 
-export default class Library {
+class Library {
   #parentElement = document.querySelector(".books-showcase");
 
-  async render(books) {
-    const markDown = books
-      .map((book) => this.createBookMarkdown(book))
-      .join("");
-    console.log(markDown);
-    this.#parentElement.insertAdjacentHTML("afterbegin", markDown);
+  async render(books, btnHandler) {
+    this.#parentElement.innerHTML = "";
+    books.forEach((book) => {
+      this.#parentElement.insertAdjacentElement(
+        "afterbegin",
+        this.createBookMarkdown(book, btnHandler)
+      );
+    });
   }
 
-  createBookMarkdown(book) {
-    return `
-      <div class="book-object" data-book-id="${book.id}">
+  createBookMarkdown(book, btnHandler) {
+    const bookElement = document.createElement("div");
+    bookElement.className = "book-object";
+    bookElement.dataset.bookId = book.id;
+    bookElement.innerHTML = `
         <div class="book-cover">
-          <img src="${bookImage}" />
+          <img class="book-cover-image" src="${bookIcon}" />
         </div>
         <div class="book-info">
           <h3>${book.title}</h3>
           <span class="book-author">by ${book.author}</span>
-          <p class="book-pages">Number of pages, ${book.pages}.</p>
+          <p class="book-pages">pages, ${book.pages}</p>
           <div class="book-options">
-          <span>Read</span>
-          <i class="book-btn btn-read-book ${
-            book.read ? `fas fa-check` : `fas fa-times`
-          }"></i>
-            <i class="book-btn btn-update-book fas fa-pen"></i>
-            <i class="book-btn btn-delete-book fas fa-trash"></i>
-          </div>
+            <div class="book-read">
+              <p>Read</p>
+              <span>
+            
+              <img src="${
+                book.read ? checkerIcon : crossIcon
+              }" alt="checker icon" /> 
+            </span>
+            </div>
+          
+          <button class="book-btn btn-update-book" data-control="update">
+            <img class="icon-btn" src="${updateIcon}" alt="update icon" />
+          </button>
+          <button class="book-btn btn-delete-book" data-control="delete">
+            <img class="icon-btn" src="${trashIcon}" alt="delete icon" />
+          </button>
+        </div>
       </div>
     `;
-  }
 
-  // listBooks() {
-  //   const booksShowcase = document.querySelector(".books-showcase");
-  //   booksShowcase.innerHTML = "";
-  //   for (let id in window.localStorage) {
-  //     const book = this.getBook(id);
-  //     if (book) {
-  //       const bookEle = this.createBookHtml(id);
-  //       booksShowcase.insertAdjacentElement("afterbegin", bookEle);
-  //       const read = bookEle.querySelector(".btn-read-book");
-  //       const update = bookEle.querySelector(".btn-update-book");
-  //       const del = bookEle.querySelector(".btn-delete-book");
-  //       //Add event listeners to current book dom element
-  //       read.addEventListener("click", (e) => setReadEventListener(e));
-  //       update.addEventListener("click", (e) => setUpdateEventListener(e));
-  //       del.addEventListener("click", (e) => setDeleteEventListener(e));
-  //     }
-  //   }
-  // }
+    bookElement.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-control]");
+      if (!btn) return;
+      btnHandler({ ...book, action: btn.dataset.control });
+    });
+
+    return bookElement;
+  }
 }
+
+export default new Library();
