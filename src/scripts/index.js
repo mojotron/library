@@ -5,47 +5,40 @@ import {
   addBookToServer,
   getBooksFromServer,
   deleteBookFromServer,
+  updateBookFromServer,
 } from "./firebase";
 import Library from "./Library";
+import Form from "./Form";
 
-//DOM Selectors
+const controlAddNewBook = async () => {
+  Form.addForm();
+  Form.addBookHandler(async (obj) => {
+    await addBookToServer(obj);
+    await handleRenderBooks();
+  });
+};
+
 const addBookBtn = document.querySelector(".btn-add-book");
-const bookForm = document.querySelector(".add-book-form");
-const cancelFormBtn = document.querySelector(".btn-cancel-form");
-const formSubmitBtn = bookForm.querySelector(".btn-submit-form");
+addBookBtn.addEventListener("click", controlAddNewBook);
 
 const controlClickHandler = async (bookControlObj) => {
   if (bookControlObj.action === "delete") {
     await deleteBookFromServer(bookControlObj.id);
+    await handleRenderBooks();
   }
-  handleRenderBooks();
+  if (bookControlObj.action === "update") {
+    Form.addForm(bookControlObj);
+    Form.addBookHandler(async (obj) => {
+      await updateBookFromServer(bookControlObj.id, obj);
+      await handleRenderBooks();
+    });
+  }
 };
 
 const handleRenderBooks = async () => {
   const books = await getBooksFromServer();
   Library.render(books, controlClickHandler);
 };
-// call form on click
-addBookBtn.addEventListener("click", () => {
-  bookForm.classList.remove("hidden");
-});
-// close book on x
-cancelFormBtn.addEventListener("click", () => {
-  bookForm.classList.add("hidden");
-});
-// get data to form and save it to server
-formSubmitBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  const bookObj = {
-    title: bookForm.title.value,
-    author: bookForm.author.value,
-    pages: bookForm.pages.value,
-    read: bookForm.read.checked,
-  };
-  bookForm.reset();
-  bookForm.classList.add("hidden");
-  addBookToServer(bookObj);
-});
 
 export const handleDeleteBook = (id) => {
   console.log(id);

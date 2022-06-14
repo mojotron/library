@@ -96,6 +96,7 @@ body {
   margin: 1.5rem 0.8rem;
   color: #222;
   border-radius: 0.5rem;
+  padding-bottom: 2rem;
 }
 .book-cover {
   height: 60%;
@@ -104,7 +105,7 @@ body {
   background-size: cover;
 }
 .book-cover-image {
-  width: 10rem;
+  width: 15rem;
 }
 .book-info {
   width: 100%;
@@ -236,7 +237,7 @@ body {
 /* BUTTON CREATE BOOK AND CANCEL FORM*/
 .btn {
   position: absolute;
-  top: 20px;
+  bottom: 10rem;
   right: 20px;
   height: 50px;
   width: 50px;
