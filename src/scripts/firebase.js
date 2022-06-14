@@ -6,7 +6,9 @@ import {
   addDoc,
   deleteDoc,
   doc,
+  updateDoc,
 } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const firebaseApp = initializeApp({
   apiKey: "AIzaSyDenAARvaKQzU1yfBvhisExAAfsJl3PiTI",
@@ -19,6 +21,7 @@ const firebaseApp = initializeApp({
 
 const db = getFirestore(firebaseApp);
 const booksCol = collection(db, "books");
+const auth = getAuth(firebaseApp);
 
 export const getBooksFromServer = async () => {
   const books = [];
@@ -36,4 +39,7 @@ export const deleteBookFromServer = async (id) => {
   await deleteDoc(docRef);
 };
 
-export const updateBookFromServer = async (id) => {};
+export const updateBookFromServer = async (id, newBookObject) => {
+  const docRef = doc(db, "books", id);
+  await updateDoc(docRef, { ...newBookObject });
+};
