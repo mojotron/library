@@ -6,6 +6,7 @@ import {
   getBooksFromServer,
   deleteBookFromServer,
   updateBookFromServer,
+  createNewUser,
 } from "./firebase";
 import Library from "./Library";
 import Form from "./Form";
@@ -45,6 +46,9 @@ export const handleDeleteBook = (id) => {
 };
 
 async function init() {
-  handleRenderBooks();
+  Form.addAuthForm();
+  Form.addAuthHandler((user) => {
+    createNewUser(user);
+  });
 }
 init();
