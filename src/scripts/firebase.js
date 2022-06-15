@@ -8,7 +8,7 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const firebaseApp = initializeApp({
   apiKey: "AIzaSyDenAARvaKQzU1yfBvhisExAAfsJl3PiTI",
@@ -43,3 +43,20 @@ export const updateBookFromServer = async (id, newBookObject) => {
   const docRef = doc(db, "books", id);
   await updateDoc(docRef, { ...newBookObject });
 };
+
+export const createNewUser = async (user) => {
+  console.log(user);
+  try {
+    const cred = await createUserWithEmailAndPassword(
+      auth,
+      user.email,
+      user.password
+    );
+    console.log(cred.user);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+// logout
+// login

@@ -234,6 +234,10 @@ body {
   background-color: #444;
   color: white;
 }
+
+#user-sign-up-btn {
+  margin: 1rem 0 2rem;
+}
 /* BUTTON CREATE BOOK AND CANCEL FORM*/
 .btn {
   position: absolute;

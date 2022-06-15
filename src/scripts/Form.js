@@ -6,13 +6,44 @@ class Form {
     this.#parentElement.append(this.#generateForm(data));
   }
 
+  addAuthForm() {
+    if (this.#parentElement.querySelector(".add-book-form")) return;
+    this.#parentElement.append(this.#generateAuthForm());
+  }
+
   removeForm() {
     const formElement = document.querySelector(".add-book-form");
     this.#parentElement.removeChild(formElement);
   }
 
+  #generateAuthForm() {
+    const formElement = document.createElement("form");
+    formElement.className = "add-book-form";
+    formElement.innerHTML = `
+        <label for="book-title">Email</label>
+        <input
+          id="user-email"
+          class="book-data"
+          type="email"
+          required
+          name="email"
+        />
+        <label for="book-author">Password</label>
+        <input
+          id="user-password"
+          class="book-data"
+          type="password"
+          required
+          name="password"
+        />
+        <button id="user-sign-up-btn" class="btn-submit-form" type="submit">Sign up</button>
+        <button id="user-log-in-btn" class="btn-submit-form" type="submit">Log in</button>
+      </form>`;
+
+    return formElement;
+  }
+
   #generateForm(data) {
-    console.log("generating form");
     const formElement = document.createElement("form");
     formElement.className = "add-book-form";
     formElement.innerHTML = `
@@ -74,6 +105,19 @@ class Form {
       };
       handler(bookObj);
       this.removeForm();
+    });
+  }
+
+  addAuthHandler(handler) {
+    const formElement = this.#parentElement.querySelector(".add-book-form");
+    formElement.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const userObj = {
+        email: formElement.email.value,
+        password: formElement.password.value,
+      };
+      handler(userObj);
+      // this.removeForm();
     });
   }
 }
