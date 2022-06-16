@@ -7,8 +7,12 @@ import crossIcon from "../images/x-close-delete-svgrepo-com.svg";
 class Library {
   #parentElement = document.querySelector(".books-showcase");
 
-  async render(books, btnHandler) {
+  clear() {
     this.#parentElement.innerHTML = "";
+  }
+
+  async render(books, btnHandler) {
+    this.clear();
     books.forEach((book) => {
       this.#parentElement.insertAdjacentElement(
         "afterbegin",

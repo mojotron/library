@@ -186,7 +186,7 @@ body {
   border-radius: 0.5rem;
   background-color: white;
   height: 50rem;
-  min-width: 400px;
+  width: 400px;
   padding: 50px 0;
   position: fixed;
   top: 50%;
@@ -225,7 +225,7 @@ body {
   border: none;
   border: 1px solid #888;
   color: #444;
-  padding: 1.5rem 4rem;
+  padding: 1.3rem 3rem;
   border-radius: 0.5rem;
   font-size: 2rem;
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
@@ -283,6 +283,32 @@ body {
 }
 .hidden {
   visibility: hidden;
+}
+/* user */
+.user {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 20rem;
+
+  position: absolute;
+  top: 3rem;
+  right: 3rem;
+  color: #444;
+  font-size: 2rem;
+}
+.user__email {
+  margin-right: 2rem;
+}
+.log-out-btn {
+  display: block;
+}
+.error {
+  font-size: 2.2rem;
+  color: rgb(236, 87, 18);
+  padding: 1rem 0;
+  text-align: center;
 }
 @media (max-width: 786px) {
   html {
