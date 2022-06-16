@@ -1,6 +1,14 @@
 class Form {
   #parentElement = document.querySelector(".main-wrapper");
 
+  addError(error) {
+    this.#parentElement.querySelector(".error").textContent = error;
+  }
+
+  removeError() {
+    this.#parentElement.querySelector(".error").textContent = "";
+  }
+
   addForm(data = null) {
     if (this.#parentElement.querySelector(".add-book-form")) return;
     this.#parentElement.append(this.#generateForm(data));
@@ -36,8 +44,21 @@ class Form {
           required
           name="password"
         />
-        <button id="user-sign-up-btn" class="btn-submit-form" type="submit">Sign up</button>
-        <button id="user-log-in-btn" class="btn-submit-form" type="submit">Log in</button>
+        <p class="error"></p>
+        <button 
+          id="user-sign-up-btn" 
+          class="btn-submit-form" 
+          type="submit" 
+          data-action="signup">
+          Sign up
+        </button>
+        <button 
+          id="user-log-in-btn" 
+          class="btn-submit-form" 
+          type="submit" 
+          data-action="login">
+          Log in
+        </button>
       </form>`;
 
     return formElement;
@@ -110,14 +131,17 @@ class Form {
 
   addAuthHandler(handler) {
     const formElement = this.#parentElement.querySelector(".add-book-form");
-    formElement.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const userObj = {
-        email: formElement.email.value,
-        password: formElement.password.value,
-      };
-      handler(userObj);
-      // this.removeForm();
+    const btns = formElement.querySelectorAll(".btn-submit-form");
+    btns.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const action = e.target.dataset.action;
+        const userObj = {
+          email: formElement.email.value,
+          password: formElement.password.value,
+        };
+        handler({ action, ...userObj });
+      });
     });
   }
 }

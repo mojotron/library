@@ -8,7 +8,12 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 
 const firebaseApp = initializeApp({
   apiKey: "AIzaSyDenAARvaKQzU1yfBvhisExAAfsJl3PiTI",
@@ -24,39 +29,50 @@ const booksCol = collection(db, "books");
 const auth = getAuth(firebaseApp);
 
 export const getBooksFromServer = async () => {
+  const userBooksCol = collection(db, `books-${auth.currentUser.uid}`);
   const books = [];
-  const snapshot = await getDocs(booksCol);
+  const snapshot = await getDocs(userBooksCol);
   snapshot.forEach((doc) => books.push({ ...doc.data(), id: doc.id }));
   return books;
 };
 
 export const addBookToServer = async (bookObj) => {
-  await addDoc(booksCol, { ...bookObj });
+  const userBooksCol = collection(db, `books-${auth.currentUser.uid}`);
+  await addDoc(userBooksCol, { ...bookObj });
 };
 
 export const deleteBookFromServer = async (id) => {
-  const docRef = doc(db, "books", id);
+  const docRef = doc(db, `books-${auth.currentUser.uid}`, id);
   await deleteDoc(docRef);
 };
 
 export const updateBookFromServer = async (id, newBookObject) => {
-  const docRef = doc(db, "books", id);
+  const docRef = doc(db, `books-${auth.currentUser.uid}`, id);
   await updateDoc(docRef, { ...newBookObject });
 };
 
 export const createNewUser = async (user) => {
-  console.log(user);
   try {
-    const cred = await createUserWithEmailAndPassword(
-      auth,
-      user.email,
-      user.password
-    );
-    console.log(cred.user);
+    await createUserWithEmailAndPassword(auth, user.email, user.password);
+    return user.email;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const logInUser = async (user) => {
+  try {
+    await signInWithEmailAndPassword(auth, user.email, user.password);
+    return user.email;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const logOutUser = async () => {
+  try {
+    await signOut(auth);
   } catch (error) {
     console.log(error.message);
   }
 };
-
-// logout
-// login
