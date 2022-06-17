@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script defer src="bundle.js"></script>
+    <title>Library | Your Books</title>
+  </head>
+  <body>
+    <div class="main-wrapper">
+      <header class="header">
+        <h1 class="header__headings">
+          <span class="header__headings--left">My Book</span
+          ><span class="header__headings--right">Library</span>
+        </h1>
+        <p class="header-info">Keep track of books you like</p>
+        <span class="btn btn-add-book"></span>
+      </header>
+
+      <div class="user hidden">
+        <p class="user__email"></p>
+        <button id="log-out-btn" class="btn-submit-form">Sign Out</button>
+      </div>
+
+      <section class="books-showcase"></section>
+
+      <footer class="footer">
+        <h3 class="footer__info">
+          created by
+          <a
+            class="footer__info__link"
+            href="https://github.com/mojotron/memory-card"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            @mojotron
+          </a>
+        </h3>
+      </footer>
+    </div>
+  </body>
+</html>
