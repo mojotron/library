@@ -121,7 +121,7 @@ class Form {
       const bookObj = {
         title: formElement.title.value,
         author: formElement.author.value,
-        pages: formElement.pages.value,
+        pages: +formElement.pages.value,
         read: formElement.read.checked,
       };
       handler(bookObj);

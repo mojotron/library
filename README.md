@@ -39,3 +39,16 @@ Next step in curriculum is to refactor current code, from ES5 constructor functi
 - setter method with set - binds property to a function to be called when there is an attempt to set that property
 - getter method with get - binds property to a function that will be called when that property is looked up
 - public instance field declaration
+
+## Part 3 BaaS Firebase
+
+Refactor app to use Firebase cloud storage instead of local storage. Goal of this
+part is to learn how to add backend to the frontend projects.
+
+Bonus: UI redesign.
+
+### What have I learned?
+
+- creating, updating, deleting, and reading using Firebase
+- adding simple authentication and user management
+- firebase security rules syntax

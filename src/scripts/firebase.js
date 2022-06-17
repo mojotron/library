@@ -7,6 +7,8 @@ import {
   deleteDoc,
   doc,
   updateDoc,
+  query,
+  where,
 } from "firebase/firestore";
 import {
   getAuth,
@@ -29,25 +31,24 @@ const booksCol = collection(db, "books");
 const auth = getAuth(firebaseApp);
 
 export const getBooksFromServer = async () => {
-  const userBooksCol = collection(db, `books-${auth.currentUser.uid}`);
+  const q = query(booksCol, where("user", "==", auth.currentUser.uid));
   const books = [];
-  const snapshot = await getDocs(userBooksCol);
+  const snapshot = await getDocs(q);
   snapshot.forEach((doc) => books.push({ ...doc.data(), id: doc.id }));
   return books;
 };
 
 export const addBookToServer = async (bookObj) => {
-  const userBooksCol = collection(db, `books-${auth.currentUser.uid}`);
-  await addDoc(userBooksCol, { ...bookObj });
+  await addDoc(booksCol, { ...bookObj, user: auth.currentUser.uid });
 };
 
 export const deleteBookFromServer = async (id) => {
-  const docRef = doc(db, `books-${auth.currentUser.uid}`, id);
+  const docRef = doc(db, "books", id);
   await deleteDoc(docRef);
 };
 
 export const updateBookFromServer = async (id, newBookObject) => {
-  const docRef = doc(db, `books-${auth.currentUser.uid}`, id);
+  const docRef = doc(db, "books", id);
   await updateDoc(docRef, { ...newBookObject });
 };
 
