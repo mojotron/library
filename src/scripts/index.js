@@ -9,7 +9,7 @@ import {
   createNewUser,
   logInUser,
   logOutUser,
-} from "./firebase";
+} from "./firebaseApp";
 import Library from "./Library";
 import Form from "./Form";
 
@@ -28,7 +28,6 @@ const logOutBtn = userElement.querySelector("#log-out-btn");
 addBookBtn.addEventListener("click", controlAddNewBook);
 
 const controlLogOutUser = async () => {
-  console.log("yo");
   await logOutUser();
   userElement.classList.add("hidden");
   userEmailElement.textContent = "";
