@@ -1,14 +1,18 @@
 # Library App
 
 This project is part of [The Odin Project](https://www.theodinproject.com)
-curriculum. Goal of the project is to learn basic object orientated programing
+curriculum.
+Part 1: Goal of the project is to learn basic object orientated programing
 concepts in JS. Key concepts to learn are object constructors, object prototype,
 and prototypal inheritance.
+Part 2: Refactor project from object constructor to ES6 classes.
+Part 3: Refactor project to use BaaS Firebase service for storage.
+
 This app is a virtual library for user to keep track of the books or reading hit
 list. User can add new book to library, update existing books or delete them.
 It is a basic CRUD application.
 
-View live preview of book [Library](https://mojotron.github.io/library/index.html) project via GitHub pages!
+View live preview of book [Library](https://mojotron-library.netlify.app/) project via Netlify!
 
 ### What have I learned?
 
